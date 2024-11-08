@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: pink;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            flex-direction: column;
+            margin: 0;
+            padding: 0;
+        }
+        #door, #openDoor, #catHappy, #catSad {
+            display: none;
+            width: 300px;
+            cursor: pointer;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        #door:hover, #openDoor:hover {
+            transform: scale(1.05);
+        }
+        #buttons, #question, #openDoorMessage {
+            display: none;
+        }
+        #noButton {
+            position: relative;
+        }
+        /* Стили для кнопок */
+        button {
+            background-color: #ff66b2;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            border-radius: 10px;
+            margin: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff3385;
+            transform: scale(1.1);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        /* Стили для поля ввода */
+        input {
+            padding: 10px;
+            font-size: 18px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 2px solid #ff66b2;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+
+        input:focus {
+            border: 2px solid #ff3385;
+        }
+
+        /* Для текста на кнопках */
+        button:focus {
+            outline: none;
+        }
+
+        /* Адаптивные стили */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            #door, #openDoor, #catHappy, #catSad {
+                width: 80%;
+            }
+            button {
+                width: 80%;
+                font-size: 16px;
+                padding: 12px 24px;
+            }
+            input {
+                width: 80%;
+                padding: 12px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Начальное сообщение -->
+    <h1 id="message">Click the door to enter! 💓</h1>
+    <img id="door" src="closed-door.jpg" alt="Closed Door">
+
+    <!-- Вопрос после клика -->
+    <div id="question">
+        <h2>Wait you need to answer when did we start dating?? 🤨</h2>
+        <input type="text" id="answer" placeholder="Enter the date">
+        <button onclick="checkAnswer()">Submit</button>
+        <p id="error"></p>
+    </div>
+
+    <!-- Сообщение об открытой двери -->
+    <div id="openDoorMessage">
+        <h1>You passed the test, now you can enter! ❤️‍🩹❤️‍🩹</h1>
+        <img id="openDoor" src="open-door.jpg" alt="Open Door">
+    </div>
+
+    <!-- Котик и кнопки -->
+    <div id="buttons">
+        <img id="catSad" src="crying-cat.jpg" alt="Sad Cat">
+        <h2>Gul, do you still love me??</h2>
+        <button onclick="showHappyCat()">Da zhanm</button>
+        <button id="noButton" onmouseover="runAway()">Net bomj</button>
+    </div>
+
+    <img id="catHappy" src="happy-cat.gif" alt="Happy Cat">
+
+    <script>
+        document.getElementById("door").style.display = "block";
+
+        document.getElementById("door").onclick = function() {
+            document.getElementById("message").style.display = "none";
+            document.getElementById("door").style.display = "none";
+            document.getElementById("question").style.display = "block";
+        };
+
+        function checkAnswer() {
+            const answer = document.getElementById("answer").value;
+            if (answer === "11 july") {
+                document.getElementById("question").style.display = "none";
+                document.getElementById("openDoorMessage").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("openDoorMessage").style.display = "none";
+                    document.getElementById("catSad").style.display = "block";
+                    document.getElementById("buttons").style.display = "block";
+                }, 2000);
+            } else {
+                document.getElementById("error").innerText = "Don’t tell me you forgot?!? 🤬";
+            }
+        }
+
+        function showHappyCat() {
+            document.getElementById("catSad").style.display = "none";
+            document.getElementById("catHappy").style.display = "block";
+            document.getElementById("buttons").style.display = "none";
+            document.getElementById("message").innerText = "YA TEBYA TOZHE!!! 💗💗❤️❤️💓💓";
+            document.getElementById("message").style.display = "block";
+        }
+
+        function runAway() {
+            const noButton = document.getElementById("noButton");
+            noButton.style.position = "absolute";
+            noButton.style.top = Math.random() * (window.innerHeight - 50) + "px";
+            noButton.style.left = Math.random() * (window.innerWidth - 100) + "px";
+        }
+    </script>
+</body>
+</html>
